@@ -12,11 +12,12 @@ class DashboardController extends Controller
     {
         // Tanggal, bulan, dan tahun saat ini
         $hariini = date("Y-m-d");
-        $bulanini = date("m") * 1;
+        $bulanini = date("m") * 1; // Konversi bulan ke integer
         $tahunini = date("Y");
 
-        // NIK pengguna yang sedang login
-        $nik = Auth::guard('karyawan')->user()->nik;
+        // Ambil user yang sedang login
+        $user = Auth::user(); // Menggunakan Auth default Laravel
+        $nik = $user->nik; // Ambil NIK dari user yang login
 
         // Ambil data presensi hari ini
         $presensihariini = DB::table('presensi')
@@ -32,23 +33,25 @@ class DashboardController extends Controller
             ->orderBy('tgl_presensi', 'asc') // Data diurutkan dari yang terlama ke terbaru
             ->get();
 
-        $rekappresensi= DB::table('presensi')
-        ->selectRaw('COUNT(nik) as jmlhadir')
-        ->where('nik', $nik)
-        ->where('nik', $nik)
-        ->whereMonth('tgl_presensi', $bulanini)
-        ->whereYear('tgl_presensi', $tahunini)
-        ->first();
+        // Rekap presensi bulan ini
+        $rekappresensi = DB::table('presensi')
+            ->selectRaw('COUNT(nik) as jmlhadir')
+            ->where('nik', $nik)
+            ->whereMonth('tgl_presensi', $bulanini)
+            ->whereYear('tgl_presensi', $tahunini)
+            ->first();
 
-
+        // Leaderboard berdasarkan jam masuk (jam_in) pada hari ini
         $leaderboard = DB::table('presensi')
-        ->join('karyawan','presensi.nik','=', 'karyawan.nik')
-        ->where('tgl_presensi', $hariini)
-        ->orderBy('jam_in')
-        ->get();
-        $namabulan = ["","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+            ->join('users', 'presensi.nik', '=', 'users.nik') // Gabung dengan tabel `users`
+            ->where('tgl_presensi', $hariini)
+            ->orderBy('jam_in') // Urutkan berdasarkan waktu masuk
+            ->get();
+
+        // Nama bulan
+        $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
         // Kirim data ke view
         return view('dashboard.dashboard', compact('presensihariini', 'historibulanini', 'namabulan', 'bulanini', 'tahunini', 'rekappresensi', 'leaderboard'));
     }
 }
-

@@ -31,5 +31,6 @@
             <strong>Profile</strong>
         </div>
     </a>
+    @include('layouts.partials.logout')
 </div>
 <!-- * App Bottom Menu -->

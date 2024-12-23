@@ -162,13 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        Swal.fire({
-            title: 'Memproses...',
-            text: 'Mohon tunggu sebentar',
-            allowOutsideClick: false,
-            showConfirmButton: false,
-            willOpen: () => Swal.showLoading()
-        });
+        takeabsenBtn.disabled = true;
+        takeabsenBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Memproses...';
 
         $.ajax({
             type: 'POST',
@@ -179,28 +174,39 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             cache: false,
             success: function(response) {
-                const status = response.split("|");
-                if (status[0] === "success") {
+                takeabsenBtn.disabled = false;
+                takeabsenBtn.innerHTML = 'Presensi Masuk';
+
+                if (response.status === 'success') {
                     Swal.fire({
                         title: 'Berhasil!',
-                        text: status[1],
-                        icon: 'success'
+                        text: response.message,
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
                     }).then(() => {
                         window.location.href = '/dashboard';
                     });
                 } else {
                     Swal.fire({
                         title: 'Error!',
-                        text: status[1],
-                        icon: 'error'
+                        text: response.message,
+                        icon: 'error',
+                        timer: 1500,
+                        showConfirmButton: false
                     });
                 }
             },
             error: function() {
+                takeabsenBtn.disabled = false;
+                takeabsenBtn.innerHTML = 'Presensi Masuk';
+
                 Swal.fire({
                     title: 'Error!',
                     text: 'Terjadi kesalahan saat memproses presensi.',
-                    icon: 'error'
+                    icon: 'error',
+                    timer: 1500,
+                    showConfirmButton: false
                 });
             }
         });

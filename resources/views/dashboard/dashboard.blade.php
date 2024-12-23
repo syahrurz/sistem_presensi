@@ -10,11 +10,11 @@
                 <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded"> <!-- Gambar avatar pengguna -->
             </div>
             <div id="user-info">
-                <h2 id="user-name">{{ Auth::guard('karyawan')->user()->nama_lengkap }}</h2> <!-- Nama pengguna -->
-                <span id="user-role">{{ Auth::guard('karyawan')->user()->jabatan }}</span> <!-- Jabatan pengguna -->
+                <h2 id="user-name">{{ Auth::user()->name }}</h2> <!-- Nama pengguna -->
+                <span id="user-role">{{ Auth::user()->jabatan }}</span> <!-- Jabatan pengguna -->
                 <div id="user-shift" class="mt-1"> <!-- Informasi jam kerja atau shift -->
                     <ion-icon name="time-outline" class="text-info" style="font-size: 1rem; color:white;"></ion-icon>
-                    <span class="text-white" style="font-size: 0.9rem;">Shift: {{ Auth::guard('karyawan')->user()->shift ?? 'Tidak Ada Data Shift' }}</span>
+                    <span class="text-white" style="font-size: 0.9rem;">Shift: {{ Auth::user()->shift ?? 'Tidak Ada Data Shift' }}</span>
                 </div>
             </div>
         </div>
@@ -172,7 +172,7 @@
                                 <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image"> <!-- Foto pengguna -->
                                 <div class="in">
                                     <div>
-                                        {{ $d->nama_lengkap }}<br>
+                                        {{ $d->name }}<br>
                                         <small>{{ $d->jabatan }} </small>
 
                                     </div> <!-- Nama pengguna -->
