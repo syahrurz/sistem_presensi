@@ -1,18 +1,17 @@
-@extends('layouts.presensi') <!-- Menggunakan layout dasar 'presensi' untuk tampilan halaman -->
-@section('content') <!-- Memulai konten dari halaman -->
+@extends('layouts.presensi')
+@section('content')
 
-<!-- Wrapper untuk seluruh konten aplikasi -->
 <div id="appCapsule">
-    <!-- Section User (Bagian Informasi Pengguna) -->
+    <!-- Section User -->
     <div class="section" id="user-section">
         <div id="user-detail">
-            <div class="avatar"> <!-- Bagian untuk foto profil pengguna -->
-                <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded"> <!-- Gambar avatar pengguna -->
+            <div class="avatar">
+                <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
             </div>
             <div id="user-info">
-                <h2 id="user-name">{{ Auth::user()->name }}</h2> <!-- Nama pengguna -->
-                <span id="user-role">{{ Auth::user()->jabatan }}</span> <!-- Jabatan pengguna -->
-                <div id="user-shift" class="mt-1"> <!-- Informasi jam kerja atau shift -->
+                <h2 id="user-name">{{ Auth::user()->name }}</h2>
+                <span id="user-role">{{ Auth::user()->jabatan }}</span>
+                <div id="user-shift" class="mt-1">
                     <ion-icon name="time-outline" class="text-info" style="font-size: 1rem; color:white;"></ion-icon>
                     <span class="text-white" style="font-size: 0.9rem;">Shift: {{ Auth::user()->shift ?? 'Tidak Ada Data Shift' }}</span>
                 </div>
@@ -20,37 +19,35 @@
         </div>
     </div>
 
-    <!-- Section Kehadiran Hari Ini -->
-    <div class="section mt-2" id="presence-section">
+    <!-- Section Kehadiran Hari Ini (dengan margin yang disesuaikan) -->
+    <div class="section mt-1" id="presence-section">
         <div class="todaypresence">
             <div class="row">
-                <!-- Kolom pertama: Status Masuk -->
                 <div class="col-6">
                     <div class="card gradasigreen">
                         <div class="card-body">
                             <div class="presencecontent">
                                 <div class="iconpresence">
-                                    <ion-icon name="camera"></ion-icon> <!-- Ikon untuk Masuk -->
+                                    <ion-icon name="camera"></ion-icon>
                                 </div>
                                 <div class="presencedetail">
-                                    <h4 class="presencetitle">Masuk</h4> <!-- Judul "Masuk" -->
-                                    <span>{{ $presensihariini ? $presensihariini->jam_in : 'Belum Absen' }}</span> <!-- Menampilkan waktu jam masuk atau status 'Belum Absen' -->
+                                    <h4 class="presencetitle">Masuk</h4>
+                                    <span>{{ $presensihariini ? $presensihariini->jam_in : 'Belum Absen' }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Kolom kedua: Status Pulang -->
                 <div class="col-6">
                     <div class="card gradasired">
                         <div class="card-body">
                             <div class="presencecontent">
                                 <div class="iconpresence">
-                                    <ion-icon name="camera"></ion-icon> <!-- Ikon untuk Pulang -->
+                                    <ion-icon name="camera"></ion-icon>
                                 </div>
                                 <div class="presencedetail">
-                                    <h4 class="presencetitle">Pulang</h4> <!-- Judul "Pulang" -->
-                                    <span>{{ $presensihariini && $presensihariini->jam_out ? $presensihariini->jam_out : 'Belum Absen' }}</span> <!-- Menampilkan waktu jam pulang atau status 'Belum Absen' -->
+                                    <h4 class="presencetitle">Pulang</h4>
+                                    <span>{{ $presensihariini && $presensihariini->jam_out ? $presensihariini->jam_out : 'Belum Absen' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -59,62 +56,62 @@
             </div>
         </div>
 
-        <!-- Rekap Presensi (Bagian Status Kehadiran) -->
-        <div class="rekappresensi">
-            <h3>Rekap Presensi Bulan {{ $namabulan[$bulanini] }} Tahun {{ $tahunini }} </h3>
+        <!-- Rekap Presensi (dengan margin yang disesuaikan) -->
+        <div class="rekappresensi mt-1">
+            <h3>Rekap Presensi Bulan {{ $namabulan[$bulanini] }} Tahun {{ $tahunini }}</h3>
             <div class="row text-center justify-content-center">
                 <!-- Card 1: Hadir -->
-                <div class="col-4 col-sm-2 mb-2">
+                <div class="col-4 col-sm-2" style="margin-bottom: 5px;">
                     <div class="card">
-                        <div class="card-body" style="padding: 10px;">
+                        <div class="card-body" style="padding: 5px !important">
                             <span class="badge bg-danger" style="position:absolute; top:3px; left:10px">5</span>
-                            <ion-icon name="body-outline" style="font-size: 1.5rem;" class="text-primary"></ion-icon> <!-- Ikon Hadir -->
+                            <ion-icon name="body-outline" style="font-size: 1.3rem;" class="text-primary"></ion-icon>
                             <br>
-                            <span style="font-size: 0.8rem;">Hadir</span> <!-- Teks Hadir -->
+                            <span style="font-size: 0.8rem;">Hadir</span>
                         </div>
                     </div>
                 </div>
                 <!-- Card 2: Izin -->
-                <div class="col-4 col-sm-2 mb-2">
+                <div class="col-4 col-sm-2" style="margin-bottom: 5px;">
                     <div class="card">
-                        <div class="card-body" style="padding: 10px;">
+                        <div class="card-body" style="padding: 5px !important">
                             <span class="badge bg-danger" style="position:absolute; top:3px; left:10px">5</span>
-                            <ion-icon name="receipt-outline" style="font-size: 1.5rem;" class="text-success"></ion-icon> <!-- Ikon Izin -->
+                            <ion-icon name="receipt-outline" style="font-size: 1.3rem;" class="text-success"></ion-icon>
                             <br>
-                            <span style="font-size: 0.8rem;">Izin</span> <!-- Teks Izin -->
+                            <span style="font-size: 0.8rem;">Izin</span>
                         </div>
                     </div>
                 </div>
                 <!-- Card 3: Sakit -->
-                <div class="col-4 col-sm-2 mb-2">
+                <div class="col-4 col-sm-2 mb-1">
                     <div class="card">
-                        <div class="card-body" style="padding: 10px;">
+                        <div class="card-body" style="padding: 8px 8px !important">
                             <span class="badge bg-danger" style="position:absolute; top:3px; left:10px">5</span>
-                            <ion-icon name="medkit-outline" style="font-size: 1.5rem;" class="text-danger"></ion-icon> <!-- Ikon Sakit -->
+                            <ion-icon name="medkit-outline" style="font-size: 1.3rem;" class="text-danger"></ion-icon>
                             <br>
-                            <span style="font-size: 0.8rem;">Sakit</span> <!-- Teks Sakit -->
+                            <span style="font-size: 0.8rem;">Sakit</span>
                         </div>
                     </div>
                 </div>
                 <!-- Card 4: Telat -->
-                <div class="col-4 col-sm-2 mb-2">
+                <div class="col-4 col-sm-2 mb-1">
                     <div class="card">
-                        <div class="card-body" style="padding: 10px;">
+                        <div class="card-body" style="padding: 8px 8px !important">
                             <span class="badge bg-danger" style="position:absolute; top:3px; left:10px">5</span>
-                            <ion-icon name="alarm-outline" style="font-size: 1.5rem;" class="text-warning"></ion-icon> <!-- Ikon Telat -->
+                            <ion-icon name="alarm-outline" style="font-size: 1.3rem;" class="text-warning"></ion-icon>
                             <br>
-                            <span style="font-size: 0.8rem;">Telat</span> <!-- Teks Telat -->
+                            <span style="font-size: 0.8rem;">Telat</span>
                         </div>
                     </div>
                 </div>
                 <!-- Card 5: Cuti -->
-                <div class="col-4 col-sm-2 mb-2">
+                <div class="col-4 col-sm-2 mb-1">
                     <div class="card">
-                        <div class="card-body" style="padding: 10px;">
+                        <div class="card-body" style="padding: 8px 8px !important">
                             <span class="badge bg-danger" style="position:absolute; top:3px; left:10px">5</span>
-                            <ion-icon name="today-outline" style="font-size: 1.5rem;" class="text-primary"></ion-icon> <!-- Ikon Cuti -->
+                            <ion-icon name="today-outline" style="font-size: 1.3rem;" class="text-primary"></ion-icon>
                             <br>
-                            <span style="font-size: 0.8rem;">Cuti</span> <!-- Teks Cuti -->
+                            <span style="font-size: 0.8rem;">Cuti</span>
                         </div>
                     </div>
                 </div>
@@ -122,7 +119,7 @@
         </div>
 
         <!-- Histori Presensi -->
-        <div class="presencetab mt-2">
+        <div class="presencetab mt-1">
             <div class="tab-pane fade show active" id="pilled" role="tabpanel">
                 <ul class="nav nav-tabs style1" role="tablist">
                     <!-- Tab Bulan Ini -->
@@ -148,12 +145,12 @@
                                 <li>
                                     <div class="item">
                                         <div class="icon-box bg-primary">
-                                            <ion-icon name="calendar-outline"></ion-icon> <!-- Ikon kalender -->
+                                            <ion-icon name="calendar-outline"></ion-icon>
                                         </div>
                                         <div class="in">
-                                            <div>{{ $d->tgl_presensi }}</div> <!-- Tanggal presensi -->
-                                            <span class="badge badge-success">Masuk: {{ $d->jam_in ?? '-' }}</span> <!-- Jam masuk -->
-                                            <span class="badge badge-danger">Pulang: {{ $d->jam_out ?? '-' }}</span> <!-- Jam pulang -->
+                                            <div>{{ $d->tgl_presensi }}</div>
+                                            <span class="badge badge-success">Masuk: {{ $d->jam_in ?? '-' }}</span>
+                                            <span class="badge badge-danger">Pulang: {{ $d->jam_out ?? '-' }}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -169,16 +166,16 @@
                         @foreach ($leaderboard as $d)
                         <li>
                             <div class="item">
-                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image"> <!-- Foto pengguna -->
+                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
                                 <div class="in">
                                     <div>
                                         {{ $d->name }}<br>
                                         <small>{{ $d->jabatan }} </small>
 
-                                    </div> <!-- Nama pengguna -->
+                                    </div>
                                     <span class="badge bg-success">
                                         {{ $d->jam_in }}
-                                    </span> <!-- Jabatan pengguna -->
+                                    </span>
                                 </div>
                             </div>
                         </li>

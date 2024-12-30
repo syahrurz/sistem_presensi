@@ -88,7 +88,13 @@ class PresensiController extends Controller
     // Halaman izin
     public function izin()
     {
-        return view('presensi.izin');
+        $nik = Auth::user()->nik;
+        $dataizin = DB::table('pengajuan_izin')
+            ->where('nik', $nik)
+            ->orderBy('tgl_izin', 'desc')
+            ->get();
+
+        return view('presensi.izin', compact('dataizin'));
     }
 
     // Halaman buat izin

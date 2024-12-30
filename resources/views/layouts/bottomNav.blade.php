@@ -25,12 +25,16 @@
             <strong>Izin</strong>
         </div>
     </a>
-    <a href="javascript:;" class="item">
+    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="item">
         <div class="col">
-            <ion-icon name="people-outline" role="img" class="md hydrated" aria-label="people outline"></ion-icon>
-            <strong>Profile</strong>
+            <ion-icon name="log-out-outline"></ion-icon>
+            <strong>Keluar</strong>
         </div>
     </a>
-    @include('layouts.partials.logout')
 </div>
+
+<!-- Form Logout -->
+<form id="logout-form" action="{{ route('proseslogout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
 <!-- * App Bottom Menu -->
