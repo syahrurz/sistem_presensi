@@ -252,6 +252,22 @@
                 height: 3rem;
             }
         }
+
+        .form-text {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            color: #dc3545;
+            padding-left: 1rem;
+        }
+
+        .input-wrapper {
+            margin-bottom: 0.25rem;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
@@ -288,8 +304,14 @@
                                class="form-control"
                                id="nik"
                                placeholder="Masukkan NIK"
+                               maxlength="16"
+                               minlength="16"
+                               oninput="validateNIK(this)"
                                required>
                     </div>
+                    <small id="nikHelp" class="form-text text-danger" style="display: none; margin-top: 5px; font-size: 12px;">
+                        NIK harus 16 karakter
+                    </small>
                 </div>
 
                 <div class="form-group">
@@ -346,6 +368,32 @@
                     loader.style.display = 'none';
                 }
             });
+        });
+
+        function validateNIK(input) {
+            const nikHelp = document.getElementById('nikHelp');
+            const submitBtn = document.querySelector('.btn-primary');
+
+            // Hanya izinkan angka
+            input.value = input.value.replace(/[^0-9]/g, '');
+
+            if (input.value.length < 16) {
+                nikHelp.style.display = 'block';
+                nikHelp.style.color = '#dc3545';
+                submitBtn.disabled = true;
+            } else {
+                nikHelp.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Tambahkan validasi saat form disubmit
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const nikInput = document.getElementById('nik');
+            if (nikInput.value.length < 16) {
+                e.preventDefault();
+                document.getElementById('nikHelp').style.display = 'block';
+            }
         });
     </script>
 </body>

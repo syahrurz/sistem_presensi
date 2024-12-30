@@ -72,8 +72,8 @@
 @push('myscript')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const kantorLatitude = -7.763525215825641; // Ganti dengan koordinat kantor Anda
-    const kantorLongitude = 110.33713986776509; // Ganti dengan koordinat kantor Anda
+    const kantorLatitude = -7.80653135; // Ganti dengan koordinat kantor Anda
+    const kantorLongitude = 110.35040706; // Ganti dengan koordinat kantor Anda
     const lokasi = document.getElementById('lokasi');
     const takeabsenBtn = document.getElementById('takeabsen');
     const statusLokasi = document.getElementById('status-lokasi');
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.2,
-                radius: 100
+                radius: 300
             }).addTo(map);
 
             // Marker untuk kantor
